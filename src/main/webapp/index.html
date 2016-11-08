@@ -10,7 +10,7 @@
     <script>
         var stomp_client;
         function createStompClient() {
-            stomp_client = new Stomp.client("ws:localhost:8080/connected");
+            stomp_client = new Stomp.client("ws:lazin.pp.ua/notification/connected");
             stomp_client.connect({}, function (frame) {
                 stomp_client.subscribe("/topic/guestroom", function (message) {
                     result = JSON.parse(message.body);
@@ -62,7 +62,7 @@
     <input type="text" id="message"/>
     <input type="button" id="send-button" onclick="send_message()" value="Send" disabled="disabled"/>
     <br>
-    <textarea rows="30" cols="30" id="result" disabled="disabled" style="background-color: azure">
+    <textarea rows="30" cols="30" id="result" disabled="disabled" style="background-color: azure"}>
 
     </textarea>
 
