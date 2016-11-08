@@ -8,7 +8,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
     <script>
-
         var stomp_client;
         function createStompClient() {
             stomp_client = new Stomp.client("ws:localhost:8080/connected");
@@ -40,13 +39,14 @@
         }
 
         function quit() {
+            var sender = document.getElementById("sender").value;
             stomp_client.send("/app/logout", {}, JSON.stringify({'sender': sender, 'message': ''}));
             document.getElementById("quit-button").setAttribute('disabled', 'disabled');
             document.getElementById("send-button").setAttribute('disabled', 'disabled');
             document.getElementById("sender").removeAttribute('disabled');
             document.getElementById("reg-button").removeAttribute('disabled');
             setTimeout(function () {
-            stomp_client.disconnect();
+                stomp_client.disconnect();
             }, 1000);
         }
     </script>
@@ -62,7 +62,9 @@
     <input type="text" id="message"/>
     <input type="button" id="send-button" onclick="send_message()" value="Send" disabled="disabled"/>
     <br>
-    <textarea rows="30" cols="30" id="result" disabled="disabled"></textarea>
+    <textarea rows="30" cols="30" id="result" disabled="disabled" style="background-color: azure">
+
+    </textarea>
 
 </form>
 <div id="output"></div>

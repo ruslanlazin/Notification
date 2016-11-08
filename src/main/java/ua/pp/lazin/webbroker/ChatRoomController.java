@@ -16,13 +16,8 @@ public class ChatRoomController {
         ObjectMapper mapper = new ObjectMapper();
         InputMessage inputMessage = mapper.readValue(input, InputMessage.class);
         BroadcastMessage broadcastMessage = new BroadcastMessage();
-        if (inputMessage.getMessage().length() == 0) {
-            broadcastMessage.setBroadcastMessage("" + (inputMessage.getSender() +
-                    " came in. Welcome " + inputMessage.getSender()));
-        } else {
-            broadcastMessage.setBroadcastMessage("" + (inputMessage.getSender() + " says: " +
-                    inputMessage.getMessage()));
-        }
+        broadcastMessage.setBroadcastMessage("" + (inputMessage.getSender() + " says: " +
+                inputMessage.getMessage()));
         return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(broadcastMessage);
     }
 
@@ -32,8 +27,8 @@ public class ChatRoomController {
         ObjectMapper mapper = new ObjectMapper();
         InputMessage inputMessage = mapper.readValue(input, InputMessage.class);
         BroadcastMessage broadcastMessage = new BroadcastMessage();
-            broadcastMessage.setBroadcastMessage("" + (inputMessage.getSender() +
-                    " came in. Welcome " + inputMessage.getSender()));
+        broadcastMessage.setBroadcastMessage("" + (inputMessage.getSender() +
+                " came in. Welcome " + inputMessage.getSender()));
         return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(broadcastMessage);
     }
 
@@ -43,8 +38,8 @@ public class ChatRoomController {
         ObjectMapper mapper = new ObjectMapper();
         InputMessage inputMessage = mapper.readValue(input, InputMessage.class);
         BroadcastMessage broadcastMessage = new BroadcastMessage();
-            broadcastMessage.setBroadcastMessage("" + (inputMessage.getSender() +
-                    " has left us. We'll miss you " + inputMessage.getSender()));
+        broadcastMessage.setBroadcastMessage("" + (inputMessage.getSender() +
+                " has left us. We'll miss you, " + inputMessage.getSender()));
         return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(broadcastMessage);
     }
 }
