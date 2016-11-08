@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <script>
+
+        var stomp_client;
+        function createStompClient() {
+            stomp_client = new Stomp.client("ws:localhost:8080/connected");
+            stomp_client.connect({}, function (frame) {
+                stomp_client.subscribe("/topic/guestroom", function (message) {
+                    result = JSON.parse(message.body);
+                    document.getElementById("result").value = result.broadcastMessage + '\n'
+                            + document.getElementById("result").value;
+                });
+            });
+        }
+
+        function send_message() {
+            var sender = document.getElementById("sender").value;
+            var message = document.getElementById("message").value;
+            stomp_client.send("/app/guestroom", {}, JSON.stringify({'sender': sender, 'message': message}));
+        }
+
+        function register() {
+            createStompClient();
+            document.getElementById("reg-button").setAttribute('disabled', 'disabled');
+            document.getElementById("sender").setAttribute('disabled', 'disabled');
+            document.getElementById("quit-button").removeAttribute('disabled');
+            document.getElementById("send-button").removeAttribute('disabled');
+            var sender = document.getElementById("sender").value;
+            setTimeout(function () {
+                stomp_client.send("/app/login", {}, JSON.stringify({'sender': sender, 'message': ''}));
+            }, 1000);
+        }
+
+        function quit() {
+            stomp_client.send("/app/logout", {}, JSON.stringify({'sender': sender, 'message': ''}));
+            document.getElementById("quit-button").setAttribute('disabled', 'disabled');
+            document.getElementById("send-button").setAttribute('disabled', 'disabled');
+            document.getElementById("sender").removeAttribute('disabled');
+            document.getElementById("reg-button").removeAttribute('disabled');
+            setTimeout(function () {
+            stomp_client.disconnect();
+            }, 1000);
+        }
+    </script>
+
+</head>
+<body>
+
+<form>
+    <input type="text" id="sender"/>
+    <input type="button" id="reg-button" onclick="register()" value="Sign in"/>
+    <input type="button" id="quit-button" onclick="quit()" value="Quit" disabled="disabled"/>
+    <br>
+    <input type="text" id="message"/>
+    <input type="button" id="send-button" onclick="send_message()" value="Send" disabled="disabled"/>
+    <br>
+    <textarea rows="30" cols="30" id="result" disabled="disabled"></textarea>
+
+</form>
+<div id="output"></div>
+</body>
+</html>
