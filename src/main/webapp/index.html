@@ -35,7 +35,7 @@
             var sender = document.getElementById("sender").value;
             setTimeout(function () {
                 stomp_client.send("/app/login", {}, JSON.stringify({'sender': sender, 'message': ''}));
-            }, 1000);
+            }, 1500);
         }
 
         function quit() {
