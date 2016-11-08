@@ -1,4 +1,4 @@
-package ua.pp.lazin.webbroker;
+package ua.pp.lazin.notification;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.messaging.handler.annotation.MessageMapping;

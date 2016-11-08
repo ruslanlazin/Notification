@@ -1,4 +1,4 @@
-package ua.pp.lazin.webbroker;
+package ua.pp.lazin.notification;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -8,7 +8,7 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebSocketBrokerConfig extends AbstractWebSocketMessageBrokerConfigurer {
+public class NotificationConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {

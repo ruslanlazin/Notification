@@ -1,4 +1,4 @@
-package ua.pp.lazin.webbroker;
+package ua.pp.lazin.notification;
 
 /**
  * @author Ruslan Lazin
